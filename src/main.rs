@@ -16,9 +16,24 @@ fn main() {
             }
             else {
                 println!("\nERROR:");
-                println!("you are overwriting the description of a previous entry");
+                println!("you are overwriting the description of a previous entry on ID {}", user_id);
                 println!("Description \"{}\" not written", user_description);
             }
+        }
+        else {
+            println!("something went wrong teehee"); //FIXME: assumes input_userid does not return error FIX THIS
+        }
+    }
+    loop { //FIXME: this is hacky placeholder code lol
+        use std::io;
+        let mut input = String::new();
+        println!("\nPlease enter the user id you would like to view the description of:");
+        let _ = io::stdin().read_line(&mut input);
+        let user_id = input.trim().parse::<u8>().unwrap();
+        if let Some(description) = guests.get(&user_id) {
+            println!("{}\nDescription: {}", user_id, description);
+        } else {
+            println!("\nERROR: that user ID isn't in the database");
         }
     }
 }
