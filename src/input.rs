@@ -69,7 +69,7 @@ pub fn input_userid () -> Result<(u32, GuestInfo), InputError> {
     io::stdin().read_line(&mut id_stdin)?;
 
     let trimmed_id_stdin = id_stdin.trim();
-    if trimmed_id_stdin.len() < 5 { //throws error if string length is wrong
+    if trimmed_id_stdin.len() != 5 { //throws error if string length is wrong
         return Err(InputError::IOError(io::ErrorKind::InvalidInput.into())); //TODO: this code repeats a lot, find a solution like a macro
     }
     let fullid = u32::from_str_radix(&trimmed_id_stdin, 36)?; //TODO: make this use bit math

@@ -2,7 +2,9 @@ pub mod input;
 
 fn main() { //TODO: fix dogshit temp main function lol
     use input::input_userid;
+
     let mut i: u8 = 0;
+
     loop {
         i+=1;
         println!("ADDING USER#{i}:\n");
