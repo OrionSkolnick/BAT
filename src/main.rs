@@ -8,16 +8,26 @@ fn main() { //TODO: fix dogshit temp main function lol
     loop {
         i+=1;
         println!("ADDING USER#{i}:\n");
-        if let Ok((_id, stats)) = input_userid(){
-            println!("{} is {} years old", stats.name, stats.age);
-            println!("{}'s pronouns are {}", stats.name, stats.pronouns);
-            if stats.breathalize {
-                println!("{} must be breathalized", stats.name);
+        let result = input_userid();
+        match result {
+            Ok((id, stats)) => {
+                println!("{} (id {id}) is {} years old", stats.name, stats.age);
+                println!("{}'s pronouns are {}", stats.name, stats.pronouns);
+                if stats.breathalize {
+                    println!("{} must be breathalized", stats.name);
+                }
+                println!("Note: {}", match stats.notes {
+                    Some(note) => note,
+                    None => String::from("N/A"),
+                });
+                if let Some(mut bunks) = stats.preferred_bunks {
+                    println!("Most preferred bunk is: #{}", bunks.pop_front().unwrap());
+                }
             }
-            println!("Note: {}", match stats.notes {
-                Some(note) => note,
-                None => String::from("N/A"),
-            });
-        } else {println!("THERE WAS AN ERROR");i-=1;}
+            Err(e) => {
+                i-=1;
+                println!("{}", e);
+            }
+        }
     }
 }
