@@ -16,13 +16,13 @@ fn main() { //TODO: fix dogshit temp main function lol
                 if stats.breathalize {
                     println!("{} must be breathalized", stats.name);
                 }
+                if let Some(mut bunks) = stats.preferred_bunks {
+                    println!("Most preferred bunk is: #{}", bunks.pop_front().unwrap());
+                }
                 println!("Note: {}", match stats.notes {
                     Some(note) => note,
                     None => String::from("N/A"),
                 });
-                if let Some(mut bunks) = stats.preferred_bunks {
-                    println!("Most preferred bunk is: #{}", bunks.pop_front().unwrap());
-                }
             }
             Err(e) => {
                 i-=1;

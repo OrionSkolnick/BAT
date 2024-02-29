@@ -111,13 +111,16 @@ pub fn input_userid () -> Result<(u32, GuestInfo), InputError> {
         println!("How many prefered bunks does {name} have: ");
         io::stdin().read_line(&mut bunk_amount_stdin)?;
         let bunk_amount: u8 = bunk_amount_stdin.trim().parse()?;
+        if bunk_amount == 0 {
+            return Err(InputError::InvalidInput(String::from("bunk amount must be greater than 0")));
+        }
         let mut bunks_vecdeque: VecDeque<u8> = VecDeque::with_capacity(bunk_amount.into());
         
         for index in 0..bunk_amount {
             let mut bunk_stdin = String::with_capacity(4);
             println!("Favored bunk #{} (ex 239): ", index+1);
             io::stdin().read_line(&mut bunk_stdin)?;
-            bunks_vecdeque.push_front(bunk_stdin.trim().parse()?);
+            bunks_vecdeque.push_back(bunk_stdin.trim().parse()?);
         }
         bunks = Some(bunks_vecdeque);
     } else {
