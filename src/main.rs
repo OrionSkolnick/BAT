@@ -26,7 +26,7 @@ fn main() { //TODO: fix dogshit temp main function lol
             }
             Err(e) => {
                 i-=1;
-                println!("{}", e);
+                println!("ERROR: {}", e);
             }
         }
     }

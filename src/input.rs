@@ -27,10 +27,10 @@ impl From<io::Error> for InputError {
 impl Display for InputError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            InputError::ParseError(parse_int_error) => write!(f, "ERROR: {}", parse_int_error),
-            InputError::IOError(io_error) => write!(f, "ERROR: {}", io_error),
-            InputError::InvalidInput(invalid_err) => write!(f, "ERROR: {}", invalid_err),
-            InputError::EmptyInput(name) => write!(f, "ERROR: {} was empty", name),
+            InputError::ParseError(parse_int_error) => write!(f, "{}", parse_int_error),
+            InputError::IOError(io_error) => write!(f, "{}", io_error),
+            InputError::InvalidInput(invalid_err) => write!(f, "{}", invalid_err),
+            InputError::EmptyInput(name) => write!(f, "{} was empty", name),
         }
     }
 }
