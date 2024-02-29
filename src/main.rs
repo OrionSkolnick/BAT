@@ -10,14 +10,14 @@ fn main() { //TODO: fix dogshit temp main function lol
         println!("ADDING USER#{i}:\n");
         let result = input_userid();
         match result {
-            Ok((id, stats)) => {
+            Ok(((id, _iv), stats)) => {
                 println!("{} (id {id}) is {} years old", stats.name, stats.age);
                 println!("{}'s pronouns are {}", stats.name, stats.pronouns);
                 if stats.breathalize {
                     println!("{} must be breathalized", stats.name);
                 }
                 if let Some(mut bunks) = stats.preferred_bunks {
-                    println!("Most preferred bunk is: #{}", bunks.pop_front().unwrap());
+                    println!("Most preferred bunk is: Bunk {}", bunks.pop_front().unwrap());
                 }
                 println!("Note: {}", match stats.notes {
                     Some(note) => note,

@@ -45,7 +45,7 @@ pub struct GuestInfo { //TODO: add record of where they stayed previous nights
     pub preferred_room: String
 }
 
-pub fn input_userid () -> Result<(u32, GuestInfo), InputError> {
+pub fn input_userid () -> Result<((u16, u16), GuestInfo), InputError> {
 
     fn get_bool_input(prompt: String) -> Result<bool, InputError> {
 
@@ -77,9 +77,8 @@ pub fn input_userid () -> Result<(u32, GuestInfo), InputError> {
     if trimmed_id_stdin.len() != 5 { //throws error if string length is wrong
         return Err(InputError::InvalidInput(String::from("user id was not length 5 (ex ji210)")));
     }
-    let fullid = u32::from_str_radix(&trimmed_id_stdin, 36)?; //TODO: make this use bit math
-    let numid: u32 = (fullid>>16).try_into().unwrap();
-    let _iv1: u32 = fullid-(numid<<16);
+    let fullid = u32::from_str_radix(&trimmed_id_stdin, 36)?;
+    let (numid, iv1) = ((fullid >> 16) as u16, fullid as u16);
 
     let mut name_stdin = String::new();
     println!("Please enter the full name of the guest:");
@@ -141,7 +140,7 @@ pub fn input_userid () -> Result<(u32, GuestInfo), InputError> {
     }
 
     return Ok((
-            fullid,
+            (numid, iv1),
             GuestInfo{
                 name: name,
                 pronouns: pronouns,
